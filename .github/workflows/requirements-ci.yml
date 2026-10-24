@@ -1,0 +1,24 @@
+name: Requirements Quality Gate
+
+on:
+  push:
+    paths:
+      - 'requirements/**.md'
+
+jobs:
+  lint-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install PyYAML
+        run: pip install pyyaml
+
+      - name: Run Requirements Linter
+        run: python scripts/lint-requirements.py
